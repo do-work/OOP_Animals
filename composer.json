@@ -1,0 +1,20 @@
+{
+  "name": "vendor_name/oop-animals-cli",
+  "description": "CLI application that outputs animal sounds.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "David Olson",
+      "email": "david@deolson87.com"
+    }
+  ],
+  "require": {
+  },
+
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
