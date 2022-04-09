@@ -101,6 +101,7 @@ class Cli
         $this->writer->write("What should the animal say? (alpha numeric only)\n");
         $animalSay = $this->getUserInput();
 
+        // regex for words, digits, whitespace characters with a max length.
         if (
             !$animalSay ||
             !preg_match("/^[\w\d\s]{1," . self::MAX_USER_INPUT_LENGTH . "}$/", $animalSay)
