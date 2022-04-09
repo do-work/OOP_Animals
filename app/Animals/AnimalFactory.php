@@ -9,22 +9,18 @@ class AnimalFactory
     /**
      * @throws MissingAnimalException
      */
-    public function getAnimal(string $animal, string $name): AnimalInterface
+    public static function getAnimal(string $animal, string $name): AnimalInterface
     {
-        $animal = strtolower($animal);
-        if ($animal === 'cat') {
-            return new Cat($name);
+        switch (strtolower($animal)) {
+            case 'cat':
+                return new Cat($name);
+            case 'dog':
+                return new Dog($name);
+            case 'cow':
+                return new Cow($name);
+            case 'unicorn':
+                return new Unicorn($name);
+            default:
+                throw new MissingAnimalException("Could not determine animal type.");
         }
-        if ($animal === 'dog') {
-            return new Dog($name);
-        }
-        if ($animal === 'cow') {
-            return new Cow($name);
-        }
-        if ($animal === 'unicorn') {
-            return new Unicorn($name);
-        }
-
-        throw new MissingAnimalException("Could not determine animal type.");
     }
-}
