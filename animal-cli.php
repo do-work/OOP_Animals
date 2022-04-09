@@ -1,4 +1,3 @@
-#!/usr/local/bin/php
 <?php
 
 if (php_sapi_name() !== 'cli') {
@@ -7,7 +6,7 @@ if (php_sapi_name() !== 'cli') {
 
 require __DIR__ . '/vendor/autoload.php';
 
-use App\Cli\Cli;
+use App\Cli;
 use App\Writer\CliWriter;
 
 $app = new Cli(new CliWriter());
