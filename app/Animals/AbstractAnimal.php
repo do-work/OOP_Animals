@@ -18,7 +18,7 @@ abstract class AbstractAnimal implements AnimalInterface
 
     public function talk(): string
     {
-        return "{$this->name} says \"{$this->getSound()}\"";
+        return "$this->name says \"{$this->getSound()}\"";
     }
 
     abstract protected function getSound(): string;
