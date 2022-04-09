@@ -151,7 +151,7 @@ class Cli
 
     private function buildSuccessMessage(AnimalInterface $animal): string
     {
-        return "{$animal->talk()}\n";
+        return "{$animal->talk()}";
     }
 
     private function buildErrorMessage(Throwable $e): string
