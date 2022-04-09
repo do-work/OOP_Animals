@@ -24,3 +24,25 @@ class AnimalFactory
                 throw new MissingAnimalException("Could not determine animal type.");
         }
     }
+
+    /**
+     * Create an anonymous class that extends AbstractAnimal.
+     */
+    public static function createNewAnimal(string $name, string $sound): AnimalInterface
+    {
+        return new class($name, $sound) extends AbstractAnimal {
+            private string $sound;
+
+            public function __construct(string $name, string $sound)
+            {
+                parent::__construct($name);
+                $this->sound = $sound;
+            }
+
+            protected function getSound(): string
+            {
+                return $this->sound;
+            }
+        };
+    }
+}
