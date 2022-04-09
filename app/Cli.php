@@ -12,6 +12,8 @@ use Throwable;
 
 class Cli
 {
+    private const MAX_USER_INPUT_LENGTH = 20;
+
     private WriterInterface $writer;
 
     public function __construct(WriterInterface $writer)
@@ -24,7 +26,7 @@ class Cli
         try {
             $arguments = $this->getArguments($argv);
             $animals = $this->getAnimals($arguments);
-        } catch (MissingAnimalException|InvalidArgumentQuantity|InvalidPropertyValue $e) {
+        } catch (MissingAnimalException | InvalidArgumentQuantity | UserInputException $e) {
             $this->writer->write($this->buildErrorMessage($e));
             return;
         }

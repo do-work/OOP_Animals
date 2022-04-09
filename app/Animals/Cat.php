@@ -4,7 +4,7 @@ namespace App\Animals;
 
 class Cat extends AbstractAnimal
 {
-    const SOUND = 'meow';
+    private const SOUND = 'meow';
 
     protected function getSound(): string
     {

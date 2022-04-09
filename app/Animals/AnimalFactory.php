@@ -7,6 +7,8 @@ use App\Exceptions\MissingAnimalException;
 class AnimalFactory
 {
     /**
+     * Create an instance of a valid Animal class.
+     *
      * @throws MissingAnimalException
      */
     public static function getAnimal(string $animal, string $name): AnimalInterface
@@ -30,7 +32,7 @@ class AnimalFactory
      */
     public static function createNewAnimal(string $name, string $sound): AnimalInterface
     {
-        return new class($name, $sound) extends AbstractAnimal {
+        return new class ($name, $sound) extends AbstractAnimal {
             private string $sound;
 
             public function __construct(string $name, string $sound)
