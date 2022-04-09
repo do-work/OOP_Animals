@@ -94,7 +94,7 @@ class Cli
     {
         $this->writer->write("Animal does not exist. Would you like to create it? ((Y)es or (N)o)\n");
         $shouldCreate = $this->getUserInput();
-        if (!in_array(strtolower(rtrim($shouldCreate)), ['yes', 'y'])) {
+        if (!in_array(strtolower($shouldCreate), ['yes', 'y'])) {
             throw new MissingAnimalException("User did not want to create a new animal");
         }
 
@@ -118,20 +118,24 @@ class Cli
      * Get the user input.
      *
      * Remove new lines.
+     * @throws UserInputException
      */
     protected function getUserInput(): string
     {
-        $userInput = fgets(STDIN);
+        $userInput = $this->getUserInputFromStdIn();
         if ($userInput === false) {
             return '';
         }
+        if (strlen($userInput) > self::MAX_USER_INPUT_LENGTH) {
+            throw new UserInputException();
+        }
 
-        return $this->sanitizeUserInput($userInput);
+        return trim(preg_replace('/\n+/', '', $userInput));
     }
 
-    protected function sanitizeUserInput(string $userInput): string
+    protected function getUserInputFromStdIn()
     {
-        return trim(preg_replace('/\s+/', '', $userInput));
+        return fgets(STDIN);
     }
 
     /**
