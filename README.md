@@ -22,10 +22,12 @@ php animal-cli.php Ellie Dog Nemo Fish
 
 ## Run Tests
 ```shell
-vendor/bin/phpunit tests
+composer test
+composer test-unit
+composer test-integration
 ```
 
 ## Run Linter
 ```
-vendor/bin/phpcs --standard=PSR12 app
+composer lint
 ```
