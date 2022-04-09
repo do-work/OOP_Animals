@@ -5,8 +5,8 @@ use App\Animals\Cat;
 use App\Animals\Dog;
 use App\Cli;
 use App\Exceptions\InvalidArgumentQuantity;
-use App\Exceptions\InvalidPropertyValue;
 use App\Exceptions\MissingAnimalException;
+use App\Exceptions\UserInputException;
 use App\Writer\CliWriter;
 use PHPUnit\Framework\TestCase;
 
@@ -88,7 +88,7 @@ class CliTest extends TestCase
         $sut->validateArguments(['path', 'Ellie']);
     }
 
-    public function testValidateArgumentsRaisesExceptionWhenInvalidArugmentPairing()
+    public function testValidateArgumentsRaisesExceptionWhenInvalidArgumentPairing()
     {
         $sut = new CliTestAdapter(new CliWriter());
 
@@ -100,6 +100,7 @@ class CliTest extends TestCase
     {
         $sut = $this->getMockBuilder(CliTestAdapter::class)
             ->setConstructorArgs([new CliWriter()])
+            ->onlyMethods([])
             ->getMock();
         $animalsArgs = [
             [
@@ -118,6 +119,7 @@ class CliTest extends TestCase
     {
         $sut = $this->getMockBuilder(CliTestAdapter::class)
             ->setConstructorArgs([new CliWriter()])
+            ->onlyMethods([])
             ->getMock();
         $animalsArgs = [
             [
@@ -227,8 +229,54 @@ class CliTest extends TestCase
             ->method('getUserInput')
             ->willReturnOnConsecutiveCalls('y', 'blub&^^^');
 
-        $this->expectException(InvalidPropertyValue::class);
+        $this->expectException(UserInputException::class);
         $sut->promptToCreate('Nemo');
+    }
+
+    public function testGetUserInput()
+    {
+        $sut = $this->getMockBuilder(CliTestAdapter::class)
+            ->setConstructorArgs([new CliWriter()])
+            ->onlyMethods(['getUserInputFromStdIn'])
+            ->getMock();
+        $sut->expects($this->once())
+            ->method('getUserInputFromStdIn')
+            ->willReturn('testing');
+        $expected = 'testing';
+
+        $actual = $sut->getUserInput();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetUserInputReturnsEmptyStringWhenInputIsFalse()
+    {
+        $sut = $this->getMockBuilder(CliTestAdapter::class)
+            ->setConstructorArgs([new CliWriter()])
+            ->onlyMethods(['getUserInputFromStdIn'])
+            ->getMock();
+        $sut->expects($this->once())
+            ->method('getUserInputFromStdIn')
+            ->willReturn(false);
+        $expected = '';
+
+        $actual = $sut->getUserInput();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetUserInputRaisesExceptionWhenInputIsTooLong()
+    {
+        $sut = $this->getMockBuilder(CliTestAdapter::class)
+            ->setConstructorArgs([new CliWriter()])
+            ->onlyMethods(['getUserInputFromStdIn'])
+            ->getMock();
+        $sut->expects($this->once())
+            ->method('getUserInputFromStdIn')
+            ->willReturn('testingtestingtestingtestingtesting');
+
+        $this->expectException(UserInputException::class);
+        $sut->getUserInput();
     }
 }
 
