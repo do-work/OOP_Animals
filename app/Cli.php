@@ -103,7 +103,7 @@ class Cli
 
         if (
             !$animalSay ||
-            !preg_match("/^[\w\d\s]{1,20}$/", $animalSay)
+            !preg_match("/^[\w\d\s]{1," . self::MAX_USER_INPUT_LENGTH . "}$/", $animalSay)
         ) {
             throw new UserInputException("Invalid characters in animal say string.");
         }
