@@ -1,8 +1,7 @@
 <?php
 
-use App\Animals\AbstractAnimal;
-use App\Animals\AnimalFactory;
-use App\Animals\Dog;
+namespace App\Animals;
+
 use App\Exceptions\MissingAnimalException;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +15,7 @@ class AnimalFactoryTest extends TestCase
         $this->assertEquals('Ellie', $actual->getName());
     }
 
-    public function testGetAnimalWithInvalidAnimalRaisesException()
+    public function testGetAnimalRaisesExceptionWithInvalidAnimal()
     {
         $this->expectException(MissingAnimalException::class);
         AnimalFactory::getAnimal('gator', 'Ellie');

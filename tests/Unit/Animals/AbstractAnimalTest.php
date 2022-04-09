@@ -1,6 +1,7 @@
 <?php
 
-use App\Animals\AbstractAnimal;
+namespace App\Animals;
+
 use PHPUnit\Framework\TestCase;
 
 class AbstractAnimalTest extends TestCase

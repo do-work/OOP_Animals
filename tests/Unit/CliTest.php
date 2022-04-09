@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Cli;
+
 use App\Animals\AbstractAnimal;
 use App\Animals\Cat;
 use App\Animals\Dog;

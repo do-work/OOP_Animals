@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Cli;
 use App\Writer\WriterInterface;
 use PHPUnit\Framework\TestCase;
