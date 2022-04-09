@@ -5,8 +5,8 @@ namespace App;
 use App\Animals\AnimalFactory;
 use App\Animals\AnimalInterface;
 use App\Exceptions\InvalidArgumentQuantity;
-use App\Exceptions\InvalidPropertyValue;
 use App\Exceptions\MissingAnimalException;
+use App\Exceptions\UserInputException;
 use App\Writer\WriterInterface;
 use Throwable;
 
@@ -70,7 +70,7 @@ class Cli
     /**
      * @return AnimalInterface[]
      * @throws MissingAnimalException
-     * @throws InvalidPropertyValue
+     * @throws UserInputException
      */
     protected function getAnimals(array $args): array
     {
@@ -87,8 +87,8 @@ class Cli
     }
 
     /**
-     * @throws InvalidPropertyValue
      * @throws MissingAnimalException
+     * @throws UserInputException
      */
     protected function promptToCreate(string $name): array
     {
@@ -105,7 +105,7 @@ class Cli
             !$animalSay ||
             !preg_match("/^[\w\d\s]{1,20}$/", $animalSay)
         ) {
-            throw new InvalidPropertyValue("Invalid characters in animal say string.");
+            throw new UserInputException("Invalid characters in animal say string.");
         }
 
         return [
